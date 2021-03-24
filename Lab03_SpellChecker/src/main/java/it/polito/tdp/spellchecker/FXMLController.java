@@ -51,6 +51,9 @@ public class FXMLController {
     @FXML
     void doCheck(ActionEvent event) {
     	
+    	TxtParoleSbagliate.clear();
+    	
+    	
     	double start=(System.nanoTime())/1000000;
     	
     	if(MenuBtn.getText().equals("Language")) {
@@ -58,13 +61,15 @@ public class FXMLController {
     		return;
     	}
     	
-    	String[] input=TxtFrase.getText().toLowerCase().replaceAll("[.,\\/#!?$%\\^&\\*;:{}=\\-_'()\\[\\]\"]", "").split(" ");
+    	String[] input=TxtFrase.getText().toLowerCase().replaceAll("[.,\\/#!?$%\\^&\\*;:{}=\\-_()\\[\\]\"]", "").split(" ");
+    	
     	List<String> in=new LinkedList<String>();
     	int count=0;
     	
     	for(int i=0;i<input.length;i++) {
     		in.add(input[i]);
     	}
+    	
     	List<RichWord> lista=model.spellCheckText(in);
     	for(RichWord r:lista) {
     		if(r.isCorretta()==false) {
@@ -89,13 +94,17 @@ public class FXMLController {
     @FXML
     void doEnglish(ActionEvent event) {
     	MenuBtn.setText("English");
+    	model.unloadDictionary();
     	model.loadDictionary("English");
+    	TxtParoleSbagliate.clear();
     }
 
     @FXML
     void doItalian(ActionEvent event) {
     	MenuBtn.setText("Italiano");
+    	model.unloadDictionary();
     	model.loadDictionary("Italian");
+    	TxtParoleSbagliate.clear();
     }	
     
     public void setModel(Dictionary model) {

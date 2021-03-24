@@ -12,9 +12,12 @@ import java.util.Set;
 public class Dictionary {
 
 	private Set<String> parole;
+	//private List<String> parole;
+	
 	
 	public Dictionary() {
 		super();
+		//this.parole = new LinkedList<String>();
 		this.parole = new HashSet<String>();
 	}
 
@@ -24,7 +27,7 @@ public class Dictionary {
 			BufferedReader br=new BufferedReader(fr);
 			String word;
 			while((word=br.readLine())!=null) {
-				parole.add(word);
+				parole.add(word.toLowerCase());
 			}
 			br.close();
 		}catch(IOException o) {
@@ -48,4 +51,32 @@ public class Dictionary {
 		}
 		return rw;
 	}
+
+	public void unloadDictionary() {
+		parole.clear();
+	}
+	
+	/*public List<RichWord> spellCheckText(List<String> inputTextList){
+		List<RichWord> rw=new LinkedList<RichWord>();
+		RichWord r=null;
+		boolean trovata=false;
+		
+		for(String i:inputTextList) {
+			for(String p:parole) {
+				if(p.equals(i)) {
+					r=new RichWord(i,true);
+					rw.add(r);
+					trovata=true;
+					break;
+				}
+			}
+			if(trovata==false) {
+				r=new RichWord(i,false);
+				rw.add(r);
+			}
+		}
+		return rw;
+	}
+	*/
+	
 }
